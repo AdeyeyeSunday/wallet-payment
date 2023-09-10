@@ -235,15 +235,19 @@ public function FatchMedical(){
     }
 
     public function dashboard_user(Request $request){
-        $totalWallet = Wallet::where('upi', Auth::user()->h_number)->first("wallet_amount");
-
-        $bank = Banks::get();
-        $chennel = Chennels::get();
-        $data =[
-            'totalWallet' =>$totalWallet,
-            'bank'=>$bank,
-            'chennel'=>$chennel
-        ];
+        if(Auth::user()->role == 2){
+            $totalWallet = Wallet::where('upi', Auth::user()->h_number)->first("wallet_amount");
+            $bank = Banks::get();
+            $chennel = Chennels::get();
+            $data =[
+                'totalWallet' =>$totalWallet,
+                'bank'=>$bank,
+                'chennel'=>$chennel
+            ];
+        }
+        else{
+            return back();
+        }
         return view("user.dashboard_user",$data);
     }
 
@@ -261,7 +265,7 @@ public function FatchMedical(){
         }
 
     public function dashboard_fetch(){
-        $getTop = Top::with('chennel')->with('bank')->orderBy('created_at', 'desc')->latest()->get();
+        $getTop = Top::with('chennel')->with('bank')->where('upi', Auth::user()->h_number)->orderBy('created_at', 'desc')->latest()->get();
         return response()->json([
             'status' => 200,
             'getTop' => $getTop,
@@ -269,7 +273,12 @@ public function FatchMedical(){
     }
 
     function list(){
-        return view("user.list");
+
+        if(Auth::user()->role == 2){
+            return view("user.list");
+        }else{
+            return back();
+        }
     }
 
     public function Fatchlist()

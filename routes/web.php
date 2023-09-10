@@ -27,6 +27,7 @@ Route::middleware([
     })->name('dashboard');
 });
 Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboardFatch', [App\Http\Controllers\AdminController::class, 'dashboardFatch'])->name('dashboardFatch');
 Route::get('/wallet', [App\Http\Controllers\UserController::class, 'dashboard_user'])->name('dashboard_user');
 Route::get('/dashboard_fetch', [App\Http\Controllers\UserController::class, 'dashboard_fetch'])->name('dashboard_fetch');
 Route::post('/refund', [App\Http\Controllers\UserController::class, 'refund'])->name('refund');

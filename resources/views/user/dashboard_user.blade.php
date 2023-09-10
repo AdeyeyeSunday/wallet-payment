@@ -9,7 +9,9 @@
                                 <h1 class="display-2 error-text fw-bold">
                                     <i class="ri-ghost-smile-fill align-bottom text-primary mx-1"></i>
                                 </h1>
-                                <h4 class="text-uppercase mt-4">{{ Auth::user()->name }} Account on pending</h4>
+                                <h4 class="text-uppercase mt-4">{{ Auth::user()->name }}</h4>
+                                <h6 class="text-uppercase mt-4">Account Awaiting Admin Approval</h6>
+                                <p>Your account is awaiting admin approval. Thank you for your patience. If it takes more than 24 hours, please call us at 08026456658.</p>
                             </div>
                         </div>
                     </div>
@@ -21,7 +23,7 @@
             <div class="alert alert-info alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <p><strong>Welcome {{ Auth::user()->name }} [{{ Auth::user()->h_number }}]</strong></p>
-                <p>To fund your wallet instantly, kindly use Paystack to make a payment or use dedicated bank accounts.
+                <p>To fund your wallet instantly, Kindly use paystack to make payment or use any of the suggested accounts below.
                     Please note that bank deposits or transfers to our regular bank account may result in delayed crediting.
                 </p>
                 <ul>
@@ -36,8 +38,12 @@
                     <div class="col-md-5 col-12">
                         <div class="card">
                             <center>
-                                <h3>Wallet Balance: <br> ₦ {{ number_format($totalWallet->wallet_amount, 0, ',', ',') }}
+                                @if ($totalWallet != null)
+                                <h3>Wallet Balance: <br> ₦ {{ number_format($totalWallet->wallet_amount ? : '', 0, ',', ',') }}
                                 </h3>
+                                @else
+                                <h3>Wallet Balance: <br> ₦ 0:00</h3>
+                                @endif
                                 <div class="card-body">
                                     <div>
                                         <h4>Customer care</h4>
@@ -78,7 +84,7 @@
                     <div class="col-lg-10">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title mb-4">Latest Transaction</h4>
+                                <h4 class="card-title mb-4">Latest Deposit Transaction</h4>
                                 <div class="table-responsive">
                                     <table class="table table-bordered border-primary mb-0">
                                         <thead>

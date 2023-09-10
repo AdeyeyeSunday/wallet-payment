@@ -62,7 +62,7 @@
                 });
 
         fatchPayment();
-        function fatchPayment() {
+ function fatchPayment() {
     $.ajax({
         url: '/requestFatch',
         method: 'get',

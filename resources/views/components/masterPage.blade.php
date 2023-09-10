@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Starter Page | Niyi - Admin & Dashboard</title>
+    <title>Esh Billing System </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesdesign" name="author" />
@@ -15,7 +15,7 @@
         type="text/css" />
 
     <!-- Responsive datatable examples -->
-    <link href="assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
+    <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet"
         type="text/css" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
@@ -41,19 +41,19 @@
                     <div class="navbar-brand-box text-center">
                         <a href="index.html" class="logo logo-dark">
                             <span class="logo-sm">
-                                <img src="assets/images/logo-sm.png" alt="logo-sm-dark" height="22">
+                                <img src="assets/images/logo-dark.png" alt="logo-sm-dark" height="50">
                             </span>
                             <span class="logo-lg">
-                                <img src="assets/images/logo-dark.png" alt="logo-dark" height="24">
+                                <img src="assets/images/logo-dark.png" alt="logo-dark" height="50">
                             </span>
                         </a>
 
                         <a href="index.html" class="logo logo-light">
                             <span class="logo-sm">
-                                <img src="assets/images/logo-sm.png" alt="logo-sm-light" height="22">
+                                <img src="assets/images/logo-dark.png" alt="logo-dark" height="50">
                             </span>
                             <span class="logo-lg">
-                                <img src="assets/images/logo-light.png" alt="logo-light" height="24">
+                                <img src="assets/images/logo-dark.png" alt="logo-dark" height="50">
                             </span>
                         </a>
                     </div>
@@ -203,6 +203,7 @@
             <div id="sidebar-menu">
                 <!-- Left Menu Start -->
                 <ul class="metismenu list-unstyled" id="side-menu">
+                    @if(Auth::user()->role == 2)
                     <li class="menu-title">Menu</li>
                     <li>
                         <a href="{{ route('dashboard_user') }}" class="waves-effect">
@@ -211,8 +212,11 @@
 
                         </a>
                     </li>
+                    @endif
 
+                    @if (Auth::user()->status != 0)
 
+                    @if(Auth::user()->role == 2)
                     <li>
                         <a href="{{ route('list') }}" class="waves-effect">
                             <i class="mdi mdi-home-variant-outline"></i>
@@ -256,16 +260,24 @@
                             </li>
                         </ul>
                     </li>
+                @endif
 
-                    {{-- @if (Auth::user()->role == 1) --}}
+
+                 @if (Auth::user()->role == 1)
                     <li class="menu-title">Components</li>
+                    <li>
+                        <a href="{{ route('dashboard') }}" class="waves-effect">
+                            <i class="mdi mdi-home-variant-outline"></i>
+                            <span>Admin Dashboard</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="mdi mdi-briefcase-variant-outline"></i>
-                            <span>Admin</span>
+                            <span>Awaiting Request</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('dashboard') }}">Admin Dashboard</a></li>
+
                             <li> <a href="{{ route('awaiting') }}">Top-up Awaiting Transaction</a></li>
                             <li> <a href="{{ route('send') }}">Send Awaiting Transaction</a></li>
                             <li><a href="{{ route('medical_payment') }}">Meedical Payment Awaiting</a></li>
@@ -287,7 +299,8 @@
                             <li> <a href="{{ route("sendMoneyReport") }}">Money Sent Transaction Report</a></li>
                         </ul>
                     </li>
-                    {{-- // @endif --}}
+                    @endif
+             @endif
                 </ul>
             </div>
             <!-- Sidebar -->
@@ -322,13 +335,13 @@
                 <div class="row">
                     <div class="col-sm-6">
                         @php
-                            $getname = 'Niyi';
+                            $getname = 'Hi-ZEES ICT';
                         @endphp
                         {{ date('Y') }} © {{ $getname }}.
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">
-                            Crafted with <i class="mdi mdi-heart text-danger"></i> by {{ $getname }}
+                            Developed <i class="mdi mdi-heart text-danger"></i> by Niyi
                         </div>
                     </div>
                 </div>
@@ -364,6 +377,7 @@
     <!-- Responsive examples -->
     <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+
 
     <!-- Datatable init js -->
     <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>

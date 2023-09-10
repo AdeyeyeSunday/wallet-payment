@@ -29,11 +29,9 @@ class ReportController extends Controller
             'user'=>$user
         ]);
     }
-
     function TransactionReport(){
         return view("Report.TransactionReport");
       }
-
     function TransactionReportFetch(){
         if(Auth::user()->role == 1){
             $request = Top::with('chennel')->with('bank')->with('user')->latest()->get();
